@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='view_event.css')}}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="top-bar">
+        <div>
+            <h1>Sasquatch Websighting</h1>
+        </div>
+        <div class="right-bar">
+            <div>
+            <h2>{{user.first_name}} {{user.last_name}}
+            </div>
+            <div>
+            <a href='/dashboard'>Dashboard</a>
+            </div>
+            <div>
+            <a href="/logout">Logout</a> </h2>
+            </div>
+        </div>
+    </div>
+    <div class="column1">
+        <div>
+            <h1>{{event.location}} On {{event.date_of_sighting.strftime('%B %d %Y')}}</h1>
+            <h2>What Happened:</h2>
+            <h2>{{event.what_happened}}</h2>
+            <h2> # of Sasquatches: {{event.num_of_sas}}</h2> 
+            <h2>REPORTED BY :{{event.user.first_name}} {{event.user.last_name}}</h2>
+
+            <form action="/believe/{{event.id}}" method="post">
+            <input type="hidden" name="event_id" value="{{event.id}}">
+            <input type="hidden" name="user_id" value="{{session['user_id']}}">
+            <input type="submit" value="I believe it">
+            </form>
+            <form action="/skeptic/{{event.id}}" method="post">
+            <input type="hidden" name="user_id" value="{{session['user_id']}}">
+                <input type="submit" value="I doubt it">
+                </form>
+        </div>
+        <div> 
+            <h2>Skeptics:
+            {{skeptics|length}}    
+            {%for i in skeptics%}
+
+            <ul> {{i.first_name}} {{i.last_name}}</ul>
+       
+            {%endfor%}
+            </h2>   
+        </div> 
+    </div> 
+
+
+</body>
+</html>

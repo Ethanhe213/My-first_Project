@@ -1,0 +1,39 @@
+h1{
+    color: aqua;
+}
+body{
+    display: flex;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    width: 500px;
+    text-align: center;
+    justify-content: center;
+    margin: 20px;
+}
+label{
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color:white;
+}   
+
+input{
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color:black;
+}   
+
+.regis{
+    color:red;
+}
+input{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+p{
+    color: aliceblue;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='dashboard.css')}}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="top-bar">
+        <div>
+            <h1>Sasquatch Websighting</h1>
+        </div>
+        <div class="right-bar">
+            <div>
+            <h2>{{user.first_name}} {{user.last_name}}
+            </div>
+            <div>
+            <a href='/create_event'>Report a Sighting</a>
+            </div>
+            <div>
+            <a href="/logout">Logout</a> </h2>
+            </div>
+        </div>
+    </div>
+    <div class="table">
+        <h2>Reported Sightings</h2>
+    <table>
+            <div>
+            {% for i in events%}
+            <tr>  
+            <td>{{i.location}}</td>
+         
+            <td>{{i.date_of_sighting.strftime('%Y-%m-%d')}}
+            </td>
+           
+           
+            <td>REPORTED BY :{{i.user.first_name}} {{i.user.last_name}} </td>
+            {% if i.user.id!=user.id:%}
+            <td><a href="/view/{{i.id}}">view </a></td>
+            {%endif%}
+            {% if i.user.id==user.id:%}
+            <td> <a href="/edit/{{i.id}}">edit</a></td>
+            <td><a href="/delete/{{i.id}}">delete</a>
+           </td>
+            {%endif%}
+            </tr>
+            {%endfor%}
+        </div>
+    </div>
+    </table>
+</div>
+
+</body>
+</html>
