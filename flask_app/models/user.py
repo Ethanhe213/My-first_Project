@@ -2,7 +2,7 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
-DB='Websighting'
+DB='gas'
 class User:
     def __init__(self, data ):
         self.id=data['id']
@@ -59,20 +59,4 @@ class User:
             flash('account already exists','register')
             is_valid=False
         return is_valid
-    @classmethod
-    def skeptic(cls,id):
-        data={'id':id}
-        query='''SELECT * from users WHERE users.id NOT IN(SELECT user_id FROM believer where event_id=%(id)s) and 
-                users.id NOT IN( select user_id from events where events.id=%(id)s)'''
-        users=[]
-        result=connectToMySQL(DB).query_db(query,data)
-        for user in result:
-            users.append(cls(user))
-        return users
-    @classmethod
-    def count(cls,id):
-        data={'id':id}
-        query='''SELECT COUNT(users.id) as count from users WHERE users.id NOT IN(SELECT user_id FROM believer where event_id=%(id)s) and 
-                users.id NOT IN( select user_id from events where events.id=%(id)s)'''
-        result=connectToMySQL(DB).query_db(query,data)
-        return result
+    

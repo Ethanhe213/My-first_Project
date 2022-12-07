@@ -10,14 +10,14 @@
 <body>
     <div class="top-bar">
         <div>
-            <h1>Sasquatch Websighting</h1>
+            <h1>Gas price reporting</h1>
         </div>
         <div class="right-bar">
             <div>
-            <h2>{{user.first_name}} {{user.last_name}}
+            <h2>Welcome, {{user.first_name}} {{user.last_name}}
             </div>
             <div>
-            <a href='/create_event'>Report a Sighting</a>
+            <a href='/create_gas'>Report a gas price</a>
             </div>
             <div>
             <a href="/logout">Logout</a> </h2>
@@ -25,31 +25,48 @@
         </div>
     </div>
     <div class="table">
-        <h2>Reported Sightings</h2>
-    <table>
-            <div>
-            {% for i in events%}
+        <h2>Reported Gas Price</h2>
+        <div>
+            <label for="">My current city</label>
+            
+            
+            <select value="My current city" id="">
+            <form action="">
+            {%for i in gas%}
+            <option value="">{{i.city}} {{i.state}}</option>
+            {%endfor%}
+            </form>
+            </select>
+            
+            <table>
+            <tr>
+                <th>Where</th>
+                <th>Gas Price</th>
+                <th>Reported By</th>
+                <th>Date and Time Reported</th>
+                <th>Action</th>
+
+            </tr>
+            {%for i in gas%}
             <tr>  
-            <td>{{i.location}}</td>
-         
-            <td>{{i.date_of_sighting.strftime('%Y-%m-%d')}}
-            </td>
-           
-           
-            <td>REPORTED BY :{{i.user.first_name}} {{i.user.last_name}} </td>
-            {% if i.user.id!=user.id:%}
-            <td><a href="/view/{{i.id}}">view </a></td>
-            {%endif%}
-            {% if i.user.id==user.id:%}
-            <td> <a href="/edit/{{i.id}}">edit</a></td>
-            <td><a href="/delete/{{i.id}}">delete</a>
-           </td>
-            {%endif%}
+                <td>{{i.address}}</td>  
+                <td>{{i.gasprice}}</td>   
+                <td>{{i.user.first_name}} {{i.user.last_name}} </td>
+                <td>{{i.datetime_seen}}</td> 
+                {% if i.user.id!=user.id:%}
+                <td><a href="/view/{{i.id}}">view </a>
+                {%endif%}
+                {% if i.user.id==user.id:%}
+                    <a href="/edit/{{i.id}}">edit</a>
+                    <a href="/delete/{{i.id}}">delete</a>
+                </td>
+                {%endif%}
             </tr>
             {%endfor%}
+            </table>
         </div>
     </div>
-    </table>
+    
 </div>
 
 </body>
